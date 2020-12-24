@@ -1,7 +1,7 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    laravel.test:
+    laravel8.mac:
         build:
             context: ./vendor/laravel/sail/runtimes/8.0
             dockerfile: Dockerfile
@@ -64,12 +64,11 @@ services:
             - 8025:8025
         networks:
             - sail
-
-    phpmyadmin:
+    phpmyadmin.mac:
         image: phpmyadmin/phpmyadmin:5.0.2
         networks:
             - sail
-        container_name: phpmyadmin-5.0.2-8083
+        # container_name: phpmyadmin-5.0.2-8083
         links:
             - mysql
         environment:
@@ -77,8 +76,10 @@ services:
             PMA_PORT: 3306
         ports:
         - '8083:80'
-        volumes: 
+        volumes:
         - 'sailphpmyadmin:/sessions'
+        depends_on:
+          - mysql
 networks:
     sail:
         driver: bridge
